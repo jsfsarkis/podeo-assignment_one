@@ -65,6 +65,7 @@ class CalculatorCubit extends HydratedCubit<CalculatorState> {
       ContextModel cm = ContextModel();
       result = '${expression.evaluate(EvaluationType.REAL, cm)}';
       result = removeTrailingZeros(result);
+      result = double.parse(result).toStringAsFixed(5).toString();
       history[history.length.toString()] = [this.expression, result];
       emit(CalculatorState(
         expression: this.expression,
