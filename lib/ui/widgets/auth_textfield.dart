@@ -6,12 +6,17 @@ class AuthTextField extends StatelessWidget {
   final String? hintText;
   final Function onChanged;
   final bool? obscureText;
+  final TextCapitalization? textCapitalization;
+  final TextInputType? textInputType;
+
   const AuthTextField({
     Key? key,
     required this.label,
     required this.onChanged,
     this.obscureText,
     this.hintText,
+    this.textCapitalization,
+    this.textInputType,
   }) : super(key: key);
 
   @override
@@ -30,6 +35,8 @@ class AuthTextField extends StatelessWidget {
         SizedBox(
           height: 80,
           child: TextField(
+            keyboardType: textInputType ?? TextInputType.text,
+            textCapitalization: textCapitalization ?? TextCapitalization.none,
             obscureText: (obscureText != null) ? obscureText! : false,
             cursorColor: AppColors.accent,
             onChanged: (value) {

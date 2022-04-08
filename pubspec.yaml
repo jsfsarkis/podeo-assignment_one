@@ -20,6 +20,8 @@ dependencies:
   math_expressions: ^2.3.0
   flutter_svg: ^1.0.3
   path_provider: ^2.0.9
+  device_preview: ^1.0.0
+  email_validator: ^2.0.1
 
 dev_dependencies:
   flutter_test:

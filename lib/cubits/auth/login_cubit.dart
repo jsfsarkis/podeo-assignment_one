@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:meta/meta.dart';
 import 'package:podeo_assignment_one/models/user_model.dart';
 
@@ -40,6 +41,9 @@ class LoginCubit extends Cubit<LoginState> {
       return false;
     } else if (email.isEmpty) {
       emit(LoginValidationError(message: 'Email cannot be empty'));
+      return false;
+    } else if (!EmailValidator.validate(email)) {
+      emit(LoginValidationError(message: 'Please enter a valid email address.'));
       return false;
     } else if (password.isEmpty) {
       emit(LoginValidationError(message: 'Password cannot be empty'));

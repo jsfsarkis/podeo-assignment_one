@@ -124,6 +124,7 @@ class LoginScreen extends StatelessWidget {
     return AuthTextField(
       label: 'Full Name',
       hintText: 'Enter your full name...',
+      textCapitalization: TextCapitalization.words,
       onChanged: (value) {
         context.read<LoginCubit>().setFullName(value);
       },
@@ -134,6 +135,7 @@ class LoginScreen extends StatelessWidget {
     return AuthTextField(
       label: 'Email',
       hintText: 'Enter your email...',
+      textInputType: TextInputType.emailAddress,
       onChanged: (value) {
         context.read<LoginCubit>().setEmail(value);
       },

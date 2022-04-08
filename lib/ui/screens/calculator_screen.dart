@@ -1,13 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:podeo_assignment_one/cubits/auth/user_cubit.dart';
 import 'package:podeo_assignment_one/cubits/calculator/calculator_cubit.dart';
+import 'package:podeo_assignment_one/models/user_model.dart';
+import 'package:podeo_assignment_one/ui/screens/login_screen.dart';
 import 'package:podeo_assignment_one/ui/theme/app_colors.dart';
 import 'package:podeo_assignment_one/ui/widgets/calculator_button.dart';
 
-class CalculatorScreen extends StatelessWidget {
+class CalculatorScreen extends StatefulWidget {
   static const String id = 'calculator_screen';
 
   const CalculatorScreen({Key? key}) : super(key: key);
+
+  @override
+  State<CalculatorScreen> createState() => _CalculatorScreenState();
+}
+
+class _CalculatorScreenState extends State<CalculatorScreen> {
+  @override
+  void initState() {
+    User user = BlocProvider.of<UserCubit>(context).state.user;
+    Fluttertoast.showToast(
+      msg: 'Welcome, ${user.fullName}',
+      toastLength: Toast.LENGTH_LONG,
+      gravity: ToastGravity.TOP,
+      backgroundColor: AppColors.accent,
+      textColor: Colors.white,
+      fontSize: 16.0,
+    );
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -112,6 +135,21 @@ class CalculatorScreen extends StatelessWidget {
           );
         },
       ),
+      actions: [
+        GestureDetector(
+          onTap: () {
+            context.read<UserCubit>().logout();
+            context.read<CalculatorCubit>().reset();
+            context.read<CalculatorCubit>().clearHistory();
+            Navigator.pushNamedAndRemoveUntil(context, LoginScreen.id, (route) => false);
+          },
+          child: const Icon(
+            Icons.logout,
+            color: AppColors.accent,
+            size: 50,
+          ),
+        )
+      ],
     );
   }
 
@@ -167,158 +205,168 @@ class CalculatorScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CalculatorButton(
-                    label: 'AC',
-                    labelColor: AppColors.accent,
-                    onTap: () {
-                      context.read<CalculatorCubit>().reset();
-                    },
-                  ),
-                  CalculatorButton(
-                    label: '(',
-                    labelColor: AppColors.accent,
-                    onTap: () {
-                      context.read<CalculatorCubit>().setExpression('(');
-                    },
-                  ),
-                  CalculatorButton(
-                    label: ')',
-                    labelColor: AppColors.accent,
-                    onTap: () {
-                      context.read<CalculatorCubit>().setExpression(')');
-                    },
-                  ),
-                  CalculatorButton(
-                    label: '÷',
-                    labelColor: AppColors.accent,
-                    onTap: () {
-                      context.read<CalculatorCubit>().setExpression('÷');
-                    },
-                  ),
-                ],
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CalculatorButton(
+                      label: 'AC',
+                      labelColor: AppColors.accent,
+                      onTap: () {
+                        context.read<CalculatorCubit>().reset();
+                      },
+                    ),
+                    CalculatorButton(
+                      label: '(',
+                      labelColor: AppColors.accent,
+                      onTap: () {
+                        context.read<CalculatorCubit>().setExpression('(');
+                      },
+                    ),
+                    CalculatorButton(
+                      label: ')',
+                      labelColor: AppColors.accent,
+                      onTap: () {
+                        context.read<CalculatorCubit>().setExpression(')');
+                      },
+                    ),
+                    CalculatorButton(
+                      label: '÷',
+                      labelColor: AppColors.accent,
+                      onTap: () {
+                        context.read<CalculatorCubit>().setExpression('÷');
+                      },
+                    ),
+                  ],
+                ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CalculatorButton(
-                    label: '7',
-                    onTap: () {
-                      context.read<CalculatorCubit>().setExpression('7');
-                    },
-                  ),
-                  CalculatorButton(
-                    label: '8',
-                    onTap: () {
-                      context.read<CalculatorCubit>().setExpression('8');
-                    },
-                  ),
-                  CalculatorButton(
-                    label: '9',
-                    onTap: () {
-                      context.read<CalculatorCubit>().setExpression('9');
-                    },
-                  ),
-                  CalculatorButton(
-                    label: 'x',
-                    labelColor: AppColors.accent,
-                    onTap: () {
-                      context.read<CalculatorCubit>().setExpression('x');
-                    },
-                  ),
-                ],
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CalculatorButton(
+                      label: '7',
+                      onTap: () {
+                        context.read<CalculatorCubit>().setExpression('7');
+                      },
+                    ),
+                    CalculatorButton(
+                      label: '8',
+                      onTap: () {
+                        context.read<CalculatorCubit>().setExpression('8');
+                      },
+                    ),
+                    CalculatorButton(
+                      label: '9',
+                      onTap: () {
+                        context.read<CalculatorCubit>().setExpression('9');
+                      },
+                    ),
+                    CalculatorButton(
+                      label: 'x',
+                      labelColor: AppColors.accent,
+                      onTap: () {
+                        context.read<CalculatorCubit>().setExpression('x');
+                      },
+                    ),
+                  ],
+                ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CalculatorButton(
-                    label: '4',
-                    onTap: () {
-                      context.read<CalculatorCubit>().setExpression('4');
-                    },
-                  ),
-                  CalculatorButton(
-                    label: '5',
-                    onTap: () {
-                      context.read<CalculatorCubit>().setExpression('5');
-                    },
-                  ),
-                  CalculatorButton(
-                    label: '6',
-                    onTap: () {
-                      context.read<CalculatorCubit>().setExpression('6');
-                    },
-                  ),
-                  CalculatorButton(
-                    label: '-',
-                    labelColor: AppColors.accent,
-                    onTap: () {
-                      context.read<CalculatorCubit>().setExpression('-');
-                    },
-                  ),
-                ],
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CalculatorButton(
+                      label: '4',
+                      onTap: () {
+                        context.read<CalculatorCubit>().setExpression('4');
+                      },
+                    ),
+                    CalculatorButton(
+                      label: '5',
+                      onTap: () {
+                        context.read<CalculatorCubit>().setExpression('5');
+                      },
+                    ),
+                    CalculatorButton(
+                      label: '6',
+                      onTap: () {
+                        context.read<CalculatorCubit>().setExpression('6');
+                      },
+                    ),
+                    CalculatorButton(
+                      label: '-',
+                      labelColor: AppColors.accent,
+                      onTap: () {
+                        context.read<CalculatorCubit>().setExpression('-');
+                      },
+                    ),
+                  ],
+                ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CalculatorButton(
-                    label: '1',
-                    onTap: () {
-                      context.read<CalculatorCubit>().setExpression('1');
-                    },
-                  ),
-                  CalculatorButton(
-                    label: '2',
-                    onTap: () {
-                      context.read<CalculatorCubit>().setExpression('2');
-                    },
-                  ),
-                  CalculatorButton(
-                    label: '3',
-                    onTap: () {
-                      context.read<CalculatorCubit>().setExpression('3');
-                    },
-                  ),
-                  CalculatorButton(
-                    label: '+',
-                    labelColor: AppColors.accent,
-                    onTap: () {
-                      context.read<CalculatorCubit>().setExpression('+');
-                    },
-                  ),
-                ],
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CalculatorButton(
+                      label: '1',
+                      onTap: () {
+                        context.read<CalculatorCubit>().setExpression('1');
+                      },
+                    ),
+                    CalculatorButton(
+                      label: '2',
+                      onTap: () {
+                        context.read<CalculatorCubit>().setExpression('2');
+                      },
+                    ),
+                    CalculatorButton(
+                      label: '3',
+                      onTap: () {
+                        context.read<CalculatorCubit>().setExpression('3');
+                      },
+                    ),
+                    CalculatorButton(
+                      label: '+',
+                      labelColor: AppColors.accent,
+                      onTap: () {
+                        context.read<CalculatorCubit>().setExpression('+');
+                      },
+                    ),
+                  ],
+                ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CalculatorButton(
-                    label: '0',
-                    onTap: () {
-                      context.read<CalculatorCubit>().setExpression('0');
-                    },
-                  ),
-                  CalculatorButton(
-                    label: '.',
-                    onTap: () {
-                      context.read<CalculatorCubit>().setExpression('.');
-                    },
-                  ),
-                  CalculatorButton(
-                    label: '<',
-                    onTap: () {
-                      context.read<CalculatorCubit>().delete();
-                    },
-                  ),
-                  CalculatorButton(
-                    label: '=',
-                    labelColor: AppColors.accent,
-                    onTap: () {
-                      context.read<CalculatorCubit>().onEqualPressed();
-                    },
-                  ),
-                ],
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CalculatorButton(
+                      label: '0',
+                      onTap: () {
+                        context.read<CalculatorCubit>().setExpression('0');
+                      },
+                    ),
+                    CalculatorButton(
+                      label: '.',
+                      onTap: () {
+                        context.read<CalculatorCubit>().setExpression('.');
+                      },
+                    ),
+                    CalculatorButton(
+                      label: '<',
+                      onTap: () {
+                        context.read<CalculatorCubit>().delete();
+                      },
+                    ),
+                    CalculatorButton(
+                      label: '=',
+                      labelColor: AppColors.accent,
+                      onTap: () {
+                        context.read<CalculatorCubit>().onEqualPressed();
+                      },
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
