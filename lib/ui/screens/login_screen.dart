@@ -125,6 +125,9 @@ class LoginScreen extends StatelessWidget {
       label: 'Full Name',
       hintText: 'Enter your full name...',
       textCapitalization: TextCapitalization.words,
+      onEditingComplete: () {
+        Focus.of(context).nextFocus();
+      },
       onChanged: (value) {
         context.read<LoginCubit>().setFullName(value);
       },
@@ -136,6 +139,9 @@ class LoginScreen extends StatelessWidget {
       label: 'Email',
       hintText: 'Enter your email...',
       textInputType: TextInputType.emailAddress,
+      onEditingComplete: () {
+        Focus.of(context).nextFocus();
+      },
       onChanged: (value) {
         context.read<LoginCubit>().setEmail(value);
       },
@@ -147,6 +153,10 @@ class LoginScreen extends StatelessWidget {
       label: 'Password',
       hintText: 'Enter your password...',
       obscureText: true,
+      onEditingComplete: () {
+        FocusScope.of(context).unfocus();
+        context.read<LoginCubit>().onLoginPressed();
+      },
       onChanged: (value) {
         context.read<LoginCubit>().setPassword(value);
       },

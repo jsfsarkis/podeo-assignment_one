@@ -8,11 +8,13 @@ class AuthTextField extends StatelessWidget {
   final bool? obscureText;
   final TextCapitalization? textCapitalization;
   final TextInputType? textInputType;
+  final VoidCallback onEditingComplete;
 
   const AuthTextField({
     Key? key,
     required this.label,
     required this.onChanged,
+    required this.onEditingComplete,
     this.obscureText,
     this.hintText,
     this.textCapitalization,
@@ -35,6 +37,8 @@ class AuthTextField extends StatelessWidget {
         SizedBox(
           height: 80,
           child: TextField(
+            onEditingComplete: onEditingComplete,
+            textInputAction: TextInputAction.next,
             keyboardType: textInputType ?? TextInputType.text,
             textCapitalization: textCapitalization ?? TextCapitalization.none,
             obscureText: (obscureText != null) ? obscureText! : false,

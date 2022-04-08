@@ -90,13 +90,11 @@ class CalculatorCubit extends HydratedCubit<CalculatorState> {
 
   @override
   CalculatorState? fromJson(Map<String, dynamic> json) {
-    print('-------------------------------------------------------------------------');
     return CalculatorState.fromMap(json);
   }
 
   @override
   Map<String, dynamic>? toJson(CalculatorState state) {
-    print('======================================================================');
     return state.toMap();
   }
 }

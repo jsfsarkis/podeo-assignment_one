@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:podeo_assignment_one/cubits/auth/user_cubit.dart';
-import 'package:podeo_assignment_one/ui/screens/calculator_screen.dart';
-import 'package:podeo_assignment_one/ui/screens/login_screen.dart';
 
+import '../../cubits/auth/user_cubit.dart';
 import '../theme/app_colors.dart';
+import 'calculator_screen.dart';
+import 'login_screen.dart';
 
 class SplashScreen extends StatelessWidget {
   static const String id = 'splash_screen';
