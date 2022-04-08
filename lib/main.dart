@@ -19,7 +19,7 @@ void main() async {
     () {
       SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((_) {
         runApp(DevicePreview(
-          enabled: true,
+          enabled: false,
           builder: (context) => const MyApp(),
         ));
       });
