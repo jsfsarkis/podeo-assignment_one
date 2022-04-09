@@ -74,29 +74,25 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                         ),
                       );
                     } else {
-                      return SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(top: 15, right: 15),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  GestureDetector(
-                                    onTap: () {
-                                      context.read<CalculatorCubit>().clearHistory();
-                                      Navigator.pop(context);
-                                    },
-                                    child: const Icon(
-                                      Icons.delete,
-                                      color: AppColors.accent,
-                                      size: 40,
-                                    ),
-                                  )
-                                ],
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(top: 15, right: 15),
+                            child: GestureDetector(
+                              onTap: () {
+                                context.read<CalculatorCubit>().clearHistory();
+                                Navigator.pop(context);
+                              },
+                              child: const Icon(
+                                Icons.delete,
+                                color: AppColors.accent,
+                                size: 40,
                               ),
                             ),
-                            ListView.separated(
+                          ),
+                          Expanded(
+                            child: ListView.separated(
                               itemBuilder: (context, index) {
                                 return Padding(
                                   padding: const EdgeInsets.only(left: 25, right: 25, top: 10, bottom: 10),
@@ -126,8 +122,8 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                               shrinkWrap: true,
                               physics: const ClampingScrollPhysics(),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       );
                     }
                   });
